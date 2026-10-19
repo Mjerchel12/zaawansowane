@@ -1,13 +1,6 @@
-# Zadanie 2bi
-def multiplyfor(list):
-    new_list = []
-    for num in list:
-        new_list.append(num * 2)
-    return new_list
+# Zadanie 2
+def multiply(num1, num2):
+    return num1 * num2
 
-print("NUMERKI")
-numbs = [1,2,3,4,5]
-numbs = multiplyfor(numbs)
-for n in numbs:
-    print(n)
-print("\n")
+numbs = multiply(6, 7)
+print(numbs)

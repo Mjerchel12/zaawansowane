@@ -1,9 +1,6 @@
-# Zadanie 2a (nie dla początkujących)
-def print_names(list):
-    for name in list:
-        print(name)
+# Zadanie 1
+def returnstr(name, surname):
+    return "Cześć " + name + " " + surname +"!"
         
-print("IMIONA")
-names = ["Michał", "Wojtek", "Łucja", "Ada", "Maciek"]
-print_names(names)
-print("\n")
+message = returnstr("Michał", "Jerchel")
+print(message)

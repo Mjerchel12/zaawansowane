@@ -1,10 +1,15 @@
-# Zadanie 2c
-def showeven(list):
-    for n in list:
-        if n%2==0:
-            print(n)
+# Zadanie 4
+def comparethree(one, two, three):
+    return one+two>=three
 
-print("PARZYSTE")
-numbs3 = [1,2,3,4,5,6,7,8,9,10]
-numbs3 = showeven(numbs3)
-print("\n")
+bul = comparethree(1,2,9)
+if bul:
+    print("Większe, lub równe")
+else:
+    print("Mniejsze")
+
+bul = comparethree(6,7,9)
+if bul:
+    print("Większe, lub równe")
+else:
+    print("Mniejsze")

@@ -1,10 +1,15 @@
-# Zadanie 2bii
-def multiplylist(list):
-    return [num*2 for num in list]
+# Zadanie 3
+def checkifeven(num):
+    return num%2 == 0    
 
-print("NUMERKI ALT")
-numbs2 = [1,2,3,4,5]
-numbs2 = multiplylist(numbs2)
-for n in numbs2:
-    print(n)
-print("\n")
+bul = checkifeven(2)
+if bul:
+    print("Liczba parzysta")
+else:
+    print("Liczba nieparzysta")
+
+bul = checkifeven(3)
+if bul:
+    print("Liczba parzysta")
+else:
+    print("Liczba nieparzysta")
