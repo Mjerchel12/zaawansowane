@@ -9,22 +9,23 @@ class Student:
         sum = 0
         quant = 0
         for mark in self.marx:
-            sum= sum+mark
-            quant=quant+1
+            sum = sum + mark
+            quant = quant + 1
 
         print(sum)
         print(quant)
         print(sum/quant)
-        
+
         if sum/quant > 50:
             return True
         else:
             return False
 
-Lenin = Student("Vladimir Lenin", [1,2,3])
+
+Lenin = Student("Vladimir Lenin", [1, 2, 3])
 
 print(Lenin.is_passed())
 
-Xiaoping = Student("Xiaopoing Deng", [50,60,70])
+Xiaoping = Student("Xiaopoing Deng", [50, 60, 70])
 
 print(Xiaoping.is_passed())
