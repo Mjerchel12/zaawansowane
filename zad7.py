@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Optional, List, Any
 import json
 
+
 @dataclass
 class Brewery:
     id: str
@@ -45,11 +46,19 @@ class Brewery:
         )
 
     def __str__(self) -> str:
+        stringad = f"  Adres: {self.address_1 or ''}"
+        stringad = stringad + f" {self.address_2 or ''}"
+        stringad = stringad + f" {self.address_3 or ''}"
+
+        stringcit = f"  Miasto: {self.city},"
+        stringcit = stringcit + f" {self.state_province}"
+        stringcit = stringcit + f" {self.postal_code}"
+        stringcit = stringcit + f", {self.country}"
         return (
             f"Browar: {self.name} (ID: {self.id})\n"
-            f"  Typ: {self.brewery_type}\n"
-            f"  Adres: {self.address_1 or ''} {self.address_2 or ''} {self.address_3 or ''}\n"
-            f"  Miasto: {self.city}, {self.state_province} {self.postal_code}, {self.country}\n"
+            f"  Typ: {self.brewery_type}\n" +
+            stringad+"\n" +
+            stringcit+"\n"
             f"  Współrzędne: ({self.latitude}, {self.longitude})\n"
             f"  Telefon: {self.phone or 'brak'}\n"
             f"  Strona: {self.website_url or 'brak'}"

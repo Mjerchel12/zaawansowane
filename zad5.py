@@ -2,7 +2,8 @@
 def isinlist(list, num):
     return num in list
 
-list=[1,2,3]
+
+list = [1, 2, 3]
 if isinlist(list, 2):
     print("Jest")
 else:

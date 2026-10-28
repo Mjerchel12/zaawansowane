@@ -47,11 +47,19 @@ class Brewery:
         )
 
     def __str__(self) -> str:
+        stringad = f"  Adres: {self.address_1 or ''}"
+        stringad = stringad + f" {self.address_2 or ''}"
+        stringad = stringad + f" {self.address_3 or ''}"
+
+        stringcit = f"  Miasto: {self.city},"
+        stringcit = stringcit + f" {self.state_province}"
+        stringcit = stringcit + f" {self.postal_code}"
+        stringcit = stringcit + f", {self.country}"
         return (
             f"Browar: {self.name} (ID: {self.id})\n"
-            f"  Typ: {self.brewery_type}\n"
-            f"  Adres: {self.address_1 or ''} {self.address_2 or ''} {self.address_3 or ''}\n"
-            f"  Miasto: {self.city}, {self.state_province} {self.postal_code}, {self.country}\n"
+            f"  Typ: {self.brewery_type}\n" +
+            stringad+"\n" +
+            stringcit+"\n"
             f"  Współrzędne: ({self.latitude}, {self.longitude})\n"
             f"  Telefon: {self.phone or 'brak'}\n"
             f"  Strona: {self.website_url or 'brak'}"
@@ -64,11 +72,12 @@ def parse_arguments() -> argparse.Namespace:
         description="Pobiera browary z Open Brewery DB.",
         epilog="Przykład: python main.py --city=Berlin"
     )
+    string = "Nazwa miasta, według którego mają"
     parser.add_argument(
         "--city",
         type=str,
         default=None,
-        help="Nazwa miasta, według którego mają być filtrowane browary (np. Berlin)."
+        help=string + " być filtrowane browary (np. Berlin)."
     )
     parser.add_argument(
         "--limit",
@@ -79,7 +88,8 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def fetch_breweries(limit: int = 20, city: Optional[str] = None) -> List[Brewery]:
+def fetch_breweries(limit: int = 20,
+                    city: Optional[str] = None) -> List[Brewery]:
     """
     Pobiera browary z API Open Brewery DB.
     Jeżeli podano miasto, zawęża wyniki za pomocą parametru by_city.
@@ -110,9 +120,11 @@ def main():
     args = parse_arguments()
 
     if args.city:
-        print(f"Pobieranie browarów dla miasta: {args.city} (limit: {args.limit})...\n")
+        string = f"Pobieranie browarów dla miasta: {args.city}"
+        print(string + "(limit: {args.limit})...\n")
     else:
-        print(f"Pobieranie {args.limit} pierwszych browarów (bez filtra miasta)...\n")
+        string = f"Pobieranie {args.limit} pierwszych"
+        print(string + "browarów (bez filtra miasta)...\n")
 
     breweries = fetch_breweries(limit=args.limit, city=args.city)
 
@@ -120,7 +132,8 @@ def main():
         if args.city:
             print(f"Nie znaleziono browarów dla miasta: {args.city}.")
         else:
-            print("Nie udało się pobrać danych. Sprawdź połączenie z internetem.")
+            string = "Nie udało się pobrać danych."
+            print(string + "Sprawdź połączenie z internetem.")
         return
 
     print(f"Pobrano {len(breweries)} browarów:\n")
