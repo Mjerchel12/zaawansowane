@@ -1,7 +1,5 @@
+from magazine.utility import checkifeven
 # Zadanie 3
-def checkifeven(num):
-    return num % 2 == 0
-
 
 bul = checkifeven(2)
 if bul:

@@ -1,7 +1,5 @@
 # Zadanie 4
-def comparethree(one, two, three):
-    return one + two >= three
-
+from magazine.utility import comparethree
 
 bul = comparethree(1, 2, 9)
 if bul:

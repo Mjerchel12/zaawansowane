@@ -1,7 +1,5 @@
 # Zadanie 5
-def isinlist(list, num):
-    return num in list
-
+from magazine.utility import isinlist
 
 list = [1, 2, 3]
 if isinlist(list, 2):
