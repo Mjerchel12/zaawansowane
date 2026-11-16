@@ -1,35 +1,28 @@
-import csv
-import os
 import random
-import sys
-from datetime import datetime
+import string
+import time
+from datetime import datetime, timezone
 
-TASKS_FILE = "tasks.csv"
-HEADER = ["id", "phone_number", "status", "created_at",
-          "started_at", "finished_at", "consumer_id"]
-
-
-def init_file():
-    if not os.path.exists(TASKS_FILE):
-        with open(TASKS_FILE, "w", newline="") as f:
-            csv.writer(f).writerow(HEADER)
+from database import init_db, get_conn
 
 
-def produce(n: int = 1):
-    init_file()
-    with open(TASKS_FILE, "a", newline="") as f:
-        writer = csv.writer(f)
-        for i in range(1, n + 1):
-            writer.writerow([
-                f"task_{datetime.now().strftime('%H%M%S')}_{i:03d}",
-                f"+48{random.randint(100_000_000, 999_999_999)}",
-                "pending",
-                datetime.now().isoformat(timespec="seconds"),
-                "", "", "",
-            ])
-    print(f"[producer] zapisano {n} zadań do {TASKS_FILE}")
+def generate_phone() -> str:
+    return "+48" + "".join(random.choices(string.digits, k=9))
+
+
+def produce(count: int = 10, interval: float = 2.0) -> None:
+    init_db()
+    with get_conn() as conn:
+        for _ in range(count):
+            now = datetime.now(timezone.utc).isoformat()
+            cur = conn.execute(
+                "INSERT INTO tasks (phone_number, status, created_at) "
+                "VALUES (?, 'pending', ?)",
+                (generate_phone(), now),
+            )
+            print(f"[producer] dodano zadanie id={cur.lastrowid}")
+            time.sleep(interval)
 
 
 if __name__ == "__main__":
-    n = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-    produce(n)
+    produce()
